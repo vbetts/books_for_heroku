@@ -137,7 +137,7 @@ var fill = d3.scale.category20();
 
 randomRotate=d3.scale.linear().domain([0,1]).range([-75,75]);
 
-d3.csv( "{% static 'BooksApp/csv/'|add:csv_file %}", function(d) {
+d3.csv( "../book_files/csv/{{ csv_file }}", function(d) {
         return {
           text: d.word,
           size: +d.frequency/6
