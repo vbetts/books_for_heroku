@@ -1,0 +1,28 @@
+svg {
+        display: block;
+        margin: auto;
+     }
+
+.source { font-size: 70%; }
+
+body { background: url("../images/symphony.png") repeat; }
+
+p, h1, h2, h3, h4 { color: #474747; }
+
+.panel { background: white; }
+
+.book_title
+        {
+            color: #17175C;
+            font-size: 30px;
+            font-weight: bold;
+            font-family: 'Lobster', cursive;
+        }
+
+.headline {
+    font-family: Impact;
+    font-size: 50px;
+    color: #474747 !important;
+ }
+
+ .chart { margin: 3%; }

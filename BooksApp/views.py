@@ -21,7 +21,7 @@ F_PRONOUNS = os.path.join(BASE_DIR, 'BooksApp/word_exclusions/female_pronouns.tx
 M_PRONOUNS = os.path.join(BASE_DIR, 'BooksApp/word_exclusions/male_pronouns.txt')
 ALL_PRONOUNS = os.path.join(BASE_DIR, 'BooksApp/word_exclusions/maleandfemale.txt')
 N_PRONOUNS = os.path.join(BASE_DIR, 'BooksApp/word_exclusions/neutral_pronouns.txt')
-CSV_PREFIX = os.path.join(BASE_DIR, 'BooksApp/book_files/csv/')
+CSV_PREFIX = os.path.join(BASE_DIR, 'BooksApp/static/BooksApp/csv')
 
 
 def read_book(filename):
@@ -205,4 +205,4 @@ def index(request):
                                                    'hers_counts': hers_counts,
                                                    'herself_counts': herself_counts,
                                                    'csv_file': csv_file,
-                                                   'common_seq': common_sequences})
+                                                   'common_seq': common_sequences,})

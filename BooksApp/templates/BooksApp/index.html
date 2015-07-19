@@ -38,6 +38,8 @@
     <h1 class="lead">
         Public Domain Book Analysis
     </h1>
+
+    {{ csv_file }}
     <h2 class="headline">Dramatis Personae</h2>
     <div class="row">
         <div class="col-md-4">
@@ -137,7 +139,7 @@ var fill = d3.scale.category20();
 
 randomRotate=d3.scale.linear().domain([0,1]).range([-75,75]);
 
-d3.csv( "../book_files/csv/{{ csv_file }}", function(d) {
+d3.csv( "{% static 'BooksApp/csv/'|add:csv_file %}", function(d) {
         return {
           text: d.word,
           size: +d.frequency/6
