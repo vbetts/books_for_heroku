@@ -18,10 +18,8 @@ from django.contrib import admin
 from django.conf import settings
 
 urlpatterns = [
-    url(r'^', include('BooksApp.urls'))
+    url(r'^', include('BooksApp.urls')),
 ]
 
 if not settings.DEBUG:
-    urlpatterns += patterns('',
-        (r'^static/(?P<path>.*)$', 'django.views.static.serve', {'document_root': settings.STATIC_ROOT}),
-    )
+    urlpatterns += url(r'^static/(?P<path>.*)$', 'django.views.static.serve', {'document_root': settings.STATIC_ROOT}),
