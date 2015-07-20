@@ -3,6 +3,7 @@ import re
 import operator
 import os
 from . import find_common_sentences
+from django.views.decorators.cache import cache_page
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -137,7 +138,7 @@ def convert_wordcount(wordcount):
         wordlist.append(word[0])
     return wordlist
 
-
+@cache_page(60 * 60 * 24)
 def index(request):
 
     ordered_alice = convert_wordcount(order_wordcount(ALICE, STOPWORDS))
