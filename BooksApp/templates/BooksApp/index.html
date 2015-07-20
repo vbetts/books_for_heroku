@@ -176,7 +176,7 @@
         </div>
     </div>
 
-    <h1><strong>Have you ever wondered what the longest common sequence of words is between...</strong></h1>
+    <h2>Have you ever wondered what the longest common sequence of words is between...</h2>
     <h2>...Alice in Wonderland and Dracula?</h2>
     {% for sequence in common_seq_ad %}
     <h3 class="sequence">"{{ sequence }}"</h3>
@@ -193,12 +193,12 @@
     <h3 class="sequence">"{{ sequence }}"</h3>
     {% cycle '<p class="also"><b>and also...</b></p>' '' %}
     {% endfor %}
-    <h1><strong>While we're here, we should take a look at the most common words in Pride and Prejudice.
-        Elizabeth seems to be mentioned much more often than Mr. Darcy!</strong></h1>
+    <h2>While we're here, we should take a look at the most common words in Pride and Prejudice.
+        Elizabeth seems to be mentioned much more often than Mr. Darcy!</h2>
     <div id="wordCloud" class="chart"></div>
     <h3>(You may have noticed that I excluded some of the most common words. In the interest of full-disclosure, here's a representation of the blacklisted words)</h3>
     <div id="stopwordCloud" class="chart"></div>
-    <h1><strong>I've often wondered how many women are mentioned in Moby-Dick</strong></h1>
+    <h2>I've often wondered how many women are mentioned in Moby-Dick</h2>
     <div id="donut_Moby" class="chart"></div>
     <h2>Hmm... That's not entirely unexpected. Alice in Wonderland balances things out a little bit: </h2>
     <div id="donut_Alice" class="chart"></div>
