@@ -2,7 +2,6 @@ from django.shortcuts import render
 import re
 import operator
 import os
-import csv
 from . import find_common_sentences
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -22,6 +21,7 @@ M_PRONOUNS = os.path.join(BASE_DIR, 'BooksApp/word_exclusions/male_pronouns.txt'
 ALL_PRONOUNS = os.path.join(BASE_DIR, 'BooksApp/word_exclusions/maleandfemale.txt')
 N_PRONOUNS = os.path.join(BASE_DIR, 'BooksApp/word_exclusions/neutral_pronouns.txt')
 CSV_PREFIX = os.path.join(BASE_DIR, 'BooksApp/static/BooksApp/csv')
+NO_STOPWORDS = os.path.join(BASE_DIR, 'BooksApp/word_exclusions/none.txt')
 
 
 def read_book(filename):
@@ -125,32 +125,32 @@ def first_sentence(book_file):
     sentence_final = ''.join(sentence_characters)
     return sentence_final
 
-
-def make_csv_file(word_array, csv_filename):
-    fixed_filename = '{0}{1}.csv'.format(CSV_PREFIX, csv_filename)
-    with open(fixed_filename, 'w', newline='') as csv_file:
-        write = csv.writer(csv_file)
-        write.writerow(['word', 'frequency'])
-        for item in word_array:
-            write.writerow([item[0], item[1]])
-
-    relative_filename = '{0}.csv'.format(csv_filename)
-    return relative_filename
-
-
 def count_frequencies(word_array):
     count_freq = 0
     for item in word_array:
         count_freq += item[1]
     return count_freq
 
+def convert_wordcount(wordcount):
+    wordlist = []
+    for word in wordcount:
+        wordlist.append(word[0])
+    return wordlist
+
 
 def index(request):
+
+    ordered_alice = convert_wordcount(order_wordcount(ALICE, STOPWORDS))
+    ordered_dracula = convert_wordcount(order_wordcount(DRACULA, STOPWORDS))
+    ordered_moby = convert_wordcount(order_wordcount(MOBY_DICK, STOPWORDS))
+    ordered_pp = convert_wordcount(order_wordcount(PRIDE_PREJUDICE, STOPWORDS))
+    ordered_two_cities = convert_wordcount(order_wordcount(TWO_CITIES, STOPWORDS))
+
     f_count_moby_dick = count_frequencies(count_specific_words(MOBY_DICK, F_PRONOUNS))
     m_count_moby_dick = count_frequencies(count_specific_words(MOBY_DICK, M_PRONOUNS))
 
-    f_count_twocities = count_frequencies(count_specific_words(TWO_CITIES, F_PRONOUNS))
-    m_count_twocities = count_frequencies(count_specific_words(TWO_CITIES, M_PRONOUNS))
+    f_count_alice = count_frequencies(count_specific_words(ALICE, F_PRONOUNS))
+    m_count_alice = count_frequencies(count_specific_words(ALICE, M_PRONOUNS))
 
     he_counts = []
     him_counts = []
@@ -184,18 +184,34 @@ def index(request):
         hers_counts.append(round(100 * book.get("hers", 0)/total, 2))
         herself_counts.append(round(100 * book.get("herself", 0)/total, 2))
 
-    opening_line = first_sentence(ALICE)
-    count_pp = order_wordcount(PRIDE_PREJUDICE, STOPWORDS)
-    csv_file = make_csv_file(count_pp[1:250], 'pride_prej')
+    opening_line_alice = first_sentence(ALICE)
+    opening_line_dracula = first_sentence(DRACULA)
+    opening_line_moby = first_sentence(MOBY_DICK)
+    opening_line_pp = first_sentence(PRIDE_PREJUDICE)
+    opening_line_two_cities = first_sentence(TWO_CITIES)
 
-    common_sequences = find_common_sentences.find_longest_common_sequences(read_book(ALICE),
+    common_sequences_ad = find_common_sentences.find_longest_common_sequences(read_book(ALICE),
                                                                            read_book(DRACULA))
+    common_sequences_pp_md = find_common_sentences.find_longest_common_sequences(read_book(PRIDE_PREJUDICE),
+                                                                                 read_book(MOBY_DICK))
+    common_sequences_a_tt = find_common_sentences.find_longest_common_sequences(read_book(ALICE),
+                                                                                read_book(TWO_CITIES))
 
-    return render(request, 'BooksApp/index.html', {'opening_line': opening_line,
+
+    return render(request, 'BooksApp/index.html', {'opening_line_alice': opening_line_alice,
+                                                   'opening_line_dracula': opening_line_dracula,
+                                                   'opening_line_moby': opening_line_moby,
+                                                   'opening_line_pp': opening_line_pp ,
+                                                   'opening_line_two_cities': opening_line_two_cities,
+                                                   'ordered_dracula': ordered_dracula[0:9],
+                                                   'ordered_moby': ordered_moby[0:9],
+                                                   'ordered_pp': ordered_pp[0:9],
+                                                   'ordered_alice': ordered_alice[0:9],
+                                                   'ordered_two_cities': ordered_two_cities[0:9],
                                                    'f_count_moby_dick': f_count_moby_dick,
                                                    'm_count_moby_dick': m_count_moby_dick,
-                                                   'f_count_twocities': f_count_twocities,
-                                                   'm_count_twocities': m_count_twocities,
+                                                   'f_count_alice': f_count_alice,
+                                                   'm_count_alice': m_count_alice,
                                                    'he_counts': he_counts,
                                                    'him_counts': him_counts,
                                                    'his_counts': his_counts,
@@ -204,5 +220,6 @@ def index(request):
                                                    'her_counts': her_counts,
                                                    'hers_counts': hers_counts,
                                                    'herself_counts': herself_counts,
-                                                   'csv_file': csv_file,
-                                                   'common_seq': common_sequences,})
+                                                   'common_seq_ad': common_sequences_ad,
+                                                   'common_seq_pp_md': common_sequences_pp_md,
+                                                   'common_seq_a_tt': common_sequences_a_tt})

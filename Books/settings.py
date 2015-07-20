@@ -28,7 +28,7 @@ config.read(configfile)
 SECRET_KEY = config.get('key', 'secret_key')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 # ALLOWED_HOSTS = []
 

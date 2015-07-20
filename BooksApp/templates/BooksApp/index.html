@@ -2,6 +2,8 @@
 <html lang="en">
 
 {% block head %}
+{% load staticfiles %}
+
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -9,11 +11,10 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <link rel="icon" href="#">
+    <link rel="icon" href="{% static 'BooksApp/images/favicon.ico' %}">
 
     <title>Gutenberg Books</title>
     <!--http://tympanus.net/codrops/2011/11/28/typography-effects-with-css3-and-jquery/ -->
-    {% load staticfiles %}
 
     {% block styles %}
     <!-- Bootstrap core CSS -->
@@ -39,7 +40,6 @@
         Public Domain Book Analysis
     </h1>
 
-    {{ csv_file }}
     <h2 class="headline">Dramatis Personae</h2>
     <div class="row">
         <div class="col-md-4">
@@ -48,6 +48,22 @@
                     <p class="book_title text-center">
                         Alice in Wonderland
                     </p>
+                    <div class="emoji">👧🌀🐇</div>
+                    <hr width="60%">
+                    <p class=text-center><i>"{{ opening_line_alice }}"</i></p>
+                    <hr width="60%">
+                    <div class="book_summary">
+                        <p class="author">Lewis Carroll</p>
+                        <p class="date">1865, London</p>
+                        <hr width="60%">
+                        <p class="summary_title">Summarized in the 10 most common words:</p>
+                        <p class="summary">
+                            {% for word in ordered_alice %}
+                            {{ word }}
+                            {% endfor %}
+
+                        </p>
+                    </div>
                     <a href="http://www.gutenberg.org/ebooks/11" class="source">Source: Project Gutenberg</a>
                 </div>
             </div>
@@ -56,8 +72,23 @@
             <div class="panel panel-default" id="dracula">
                 <div class="panel-body">
                     <p class="book_title text-center">
-                        Dracula
-                    </p>
+                        Dracula</p>
+                    <div class="emoji">😈🏰🌙</div>
+                    <hr width="60%">
+                    <p class=text-center><i>"{{ opening_line_dracula }}"</i></p>
+                    <hr width="60%">
+                    <div class="book_summary">
+                        <p class="author">Bram Stoker</p>
+                        <p class="date">1897, London</p>
+                        <hr width="60%">
+                        <p class="summary_title">Summarized in the 10 most common words:</p>
+                        <p class="summary">
+                            {% for word in ordered_dracula %}
+                            {{ word }}
+                            {% endfor %}
+
+                        </p>
+                    </div>
                     <a href="http://www.gutenberg.org/ebooks/345" class="source">Source: Project Gutenberg</a>
                 </div>
             </div>
@@ -66,8 +97,24 @@
             <div class="panel panel-default">
                 <div class="panel-body">
                     <p class="book_title text-center">
-                        Moby Dick
+                        Moby-Dick
                     </p>
+                    <div class="emoji">🐋👨⚓</div>
+                    <hr width="60%">
+                    <p class=text-center><i>"{{ opening_line_moby }}"</i></p>
+                    <hr width="60%">
+                    <div class="book_summary">
+                        <p class="author">Herman Melville</p>
+                        <p class="date">1851, New York</p>
+                        <hr width="60%">
+                        <p class="summary_title">Summarized in the 10 most common words:</p>
+                        <p class="summary">
+                            {% for word in ordered_moby %}
+                            {{ word }}
+                            {% endfor %}
+
+                        </p>
+                    </div>
                     <a href="http://www.gutenberg.org/ebooks/2701" class="source">Source: Project Gutenberg</a>
                 </div>
             </div>
@@ -80,6 +127,23 @@
                     <p class="book_title text-center">
                         Pride and Prejudice
                     </p>
+                    <div class="emoji">👩💖👨</div>
+                    <hr width="60%">
+                    <div class="book_summary"></div>
+                    <p class=text-center><i>"{{ opening_line_pp }}"</i></p>
+                    <hr width="60%">
+                    <div class="book_summary">
+                        <p class="author">Jane Austen</p>
+                        <p class="date">1813, London</p>
+                        <hr width="60%">
+                        <p class="summary_title">Summarized in the 10 most common words:</p>
+                        <p class="summary">
+                            {% for word in ordered_pp %}
+                            {{ word }}
+                            {% endfor %}
+
+                        </p>
+                    </div>
                     <a href="http://www.gutenberg.org/ebooks/42671" class="source">Source: Project Gutenberg</a>
                 </div>
             </div>
@@ -90,19 +154,78 @@
                     <p class="book_title text-center">
                         A Tale of Two Cities
                     </p>
+                    <div class="emoji">🇫🇷🌇🇬🇧</div>
+                    <hr width="60%">
+                    <p class=text-center><i>"{{ opening_line_two_cities }}"</i></p>
+                    <hr width="60%">
+                    <div class="book_summary">
+                        <p class="author">Charles Dickens</p>
+                        <p class="date">1859, London</p>
+                        <hr width="60%">
+                        <p class="summary_title">Summarized in the 10 most common words:</p>
+                        <p class="summary">
+                            {% for word in ordered_two_cities %}
+                            {{ word }}
+                            {% endfor %}
+
+                        </p>
+                    </div>
                     <a href="http://www.gutenberg.org/ebooks/98" class="source">Source: Project Gutenberg</a>
                 </div>
             </div>
         </div>
     </div>
 
+    <h1><strong>Have you ever wondered what the longest common sequence of words is between...</strong></h1>
+    <h2>...Alice in Wonderland and Dracula?</h2>
+    {% for sequence in common_seq_ad %}
+    <h3 class="sequence">"{{ sequence }}"</h3>
+    {% cycle '<p class="also"><b>and also...</b></p>' '' %}
+    {% endfor %}
 
-    <h1>LONGEST COMMON SENTENCES</h1>
+    <h2>Interesting! How about Pride and Prejudice and Moby Dick?</h2>
+    {% for sequence in common_seq_pp_md %}
+    <h3 class="sequence">"{{ sequence }}"</h3>
+    {% endfor %}
+
+    <h2>We might as well come full circle: Alice and A Tale of Two Cities:</h2>
+    {% for sequence in common_seq_a_tt %}
+    <h3 class="sequence">"{{ sequence }}"</h3>
+    {% cycle '<p class="also"><b>and also...</b></p>' '' %}
+    {% endfor %}
+    <h1><strong>While we're here, we should take a look at the most common words in Pride and Prejudice.
+        Elizabeth seems to be mentioned much more often than Mr. Darcy!</strong></h1>
     <div id="wordCloud" class="chart"></div>
-        <div id="donut_Moby" class="chart"></div>
-        <div id="donut_TwoCities" class="chart"></div>
+    <h3>(You may have noticed that I excluded some of the most common words. In the interest of full-disclosure, here's a representation of the blacklisted words)</h3>
+    <div id="stopwordCloud" class="chart"></div>
+    <h1><strong>I've often wondered how many women are mentioned in Moby-Dick</strong></h1>
+    <div id="donut_Moby" class="chart"></div>
+    <h2>Hmm... That's not entirely unexpected. Alice in Wonderland balances things out a little bit: </h2>
+    <div id="donut_Alice" class="chart"></div>
+    <h2>Maybe we can break this down and explore it a little further. How often is each specific pronoun mentioned?</h2>
     <div class="col-md-12">
         <div id="stackedbar" class="chart"></div>
+    </div>
+
+    <h2>Cool! You learn something new every day.</h2>
+    <div class="col-md-8 col-md-offset-2">
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <p class="book_title text-center">
+                    Greetings!
+                </p>
+                <hr width="60%">
+                <p>Thanks for taking a look. I built this page using Django, Bootstrap 3, and several Javascript libraries:</p>
+                <ul>
+                    <li><a href="http://www.highcharts.com/">Highcharts</a> for the graphs</li>
+                    <li><a href="http://d3js.org/">D3</a> for the <a href="https://github.com/jasondavies/d3-cloud">word clouds</a></li>
+                </ul>
+                <p>If you liked this project, good news (for both of us): I'm currently seeking employment in Kitchener, Waterloo or Guelph, ON for September 2015!</p>
+                <p>You can find me on <a href="https://github.com/vbetts>">Github</a>,
+                    <a href="https://ca.linkedin.com/pub/victoria-betts/30/122/945">LinkedIn</a> and <a href="https://about.me/victoriabetts">About.me</a>
+                or you can drop me a line at toribetts[at]gmail[dot]com</p>
+            </div>
+        </div>
     </div>
 </div>
 </body>
@@ -131,15 +254,14 @@
 
 
 <script>
-//Dracula Word Cloud
+//Word Cloud
 
 var fill = d3.scale.category20();
 
-//var fill = d3.scale.ordinal().range(['#000000', '#4D4D4D', '#808080', '#B20000', '#FF0000']).domain(d3.range(0,6))
 
 randomRotate=d3.scale.linear().domain([0,1]).range([-75,75]);
 
-d3.csv( "{% static 'BooksApp/csv/'|add:csv_file %}", function(d) {
+d3.csv( "{% static 'BooksApp/csv/pride_prej.csv' %}", function(d) {
         return {
           text: d.word,
           size: +d.frequency/6
@@ -188,6 +310,62 @@ d3.csv( "{% static 'BooksApp/csv/'|add:csv_file %}", function(d) {
 
 </script>
 <script>
+//Stopword Cloud
+
+
+var fill_bw = d3.scale.ordinal().range(['#3D3D3D', '#000000', '#949494', '#D1D1D1',]).domain(d3.range(0,5))
+
+randomRotate=d3.scale.linear().domain([0,1]).range([-75,75]);
+
+d3.csv( "{% static 'BooksApp/csv/pp_stopwords.csv' %}", function(d) {
+        return {
+          text: d.word,
+          size: +d.frequency/10
+        }
+      },
+      function(data) {
+        d3.layout.cloud().size([1000, 600]).words(
+          data
+          )
+          .rotate(function() {return randomRotate(Math.random())})
+          .font("Impact")
+          .fontSize(function(d) {
+            return d.size;
+          })
+          .on("end", draw)
+          .start();
+
+        function draw(words) {
+
+          console.log(words);
+          d3.select("#stopwordCloud").append("svg")
+            .attr("width", 1000)
+            .attr("height", 600)
+            .append("g")
+            .attr("transform", "translate(500,300)")
+            .selectAll("text")
+            .data(words)
+            .enter().append("text")
+            .style("font-size", function(d) {
+              return d.size + "px";
+            })
+            .style("font-family", "Impact")
+            .style("align", "center")
+            .style("fill", function(d, i) {
+              return fill_bw(i);
+            })
+            .attr("text-anchor", "middle")
+            .attr("transform", function(d) {
+              return "translate(" + [d.x, d.y] + ")rotate(" + d.rotate + ")";
+            })
+            .text(function(d) {
+              return d.text;
+            });
+        }
+      });
+
+</script>
+<script>
     //Half donut chart - Moby Dick
     $(function () {
     $('#donut_Moby').highcharts({
@@ -195,7 +373,8 @@ d3.csv( "{% static 'BooksApp/csv/'|add:csv_file %}", function(d) {
         backgroundColor: "rgba(255, 255, 255, 0)",
             plotBackgroundColor: null,
             plotBorderWidth: 0,
-            plotShadow: false
+            plotShadow: false,
+
         },
         title: {
             text: 'Moby Dick<br>Pronoun<br>Breakdown',
@@ -230,12 +409,12 @@ d3.csv( "{% static 'BooksApp/csv/'|add:csv_file %}", function(d) {
                 {
                     name: 'Not Dick',
                     y: {{ f_count_moby_dick }},
-                    color: '#FF9900'
+                    color: '#944DDB'
                 },
                 {
                 name: 'Dick',
                 y: {{ m_count_moby_dick }},
-                color: '#0066FF'
+                color: '#CC0000'
                 },
 
             ]
@@ -245,9 +424,9 @@ d3.csv( "{% static 'BooksApp/csv/'|add:csv_file %}", function(d) {
 
 </script>
 <script>
-    //Half donut chart - TwoCities
+    //Half donut chart - Alice
     $(function () {
-    $('#donut_TwoCities').highcharts({
+    $('#donut_Alice').highcharts({
         chart: {
             backgroundColor: "rgba(255, 255, 255, 0)",
             plotBackgroundColor: null,
@@ -255,7 +434,7 @@ d3.csv( "{% static 'BooksApp/csv/'|add:csv_file %}", function(d) {
             plotShadow: false
         },
         title: {
-            text: 'A Tale of<br>Two Cities<br>Pronoun Breakdown',
+            text: 'Alice in<br>Wonderland<br>Pronoun Breakdown',
             align: 'center',
             verticalAlign: 'middle',
             y: 40
@@ -285,14 +464,14 @@ d3.csv( "{% static 'BooksApp/csv/'|add:csv_file %}", function(d) {
             innerSize: '50%',
             data: [
                 {
-                    name: 'Ladies',
-                    y: {{ f_count_twocities }},
-                    color: '#FF9900'
+                    name: 'Girls',
+                    y: {{ f_count_alice }},
+                    color: '#944DDB'
                 },
                 {
-                    name: 'Gents',
-                    y: {{ m_count_twocities }},
-                    color: '#0066FF'
+                    name: 'Boys',
+                    y: {{ m_count_alice }},
+                    color: '#CC0000'
                 },
 
             ]

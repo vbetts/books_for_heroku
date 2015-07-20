@@ -9,6 +9,17 @@ body { background: url("../images/symphony.png") repeat; }
 
 p, h1, h2, h3, h4 { color: #474747; }
 
+h3 { text-align: center;}
+
+.sequence { color: #17175C; }
+
+.emoji {
+        text-align: center;
+        font-size: 200%;
+ }
+
+.also { text-align: center; }
+
 .panel { background: white; }
 
 .book_title
@@ -26,3 +37,22 @@ p, h1, h2, h3, h4 { color: #474747; }
  }
 
  .chart { margin: 3%; }
+
+ .author {
+        text-align: center;
+ }
+
+ .date {
+        text-align: center;
+ }
+
+ .summary_title {
+        text-align: center;
+
+ }
+
+ .summary {
+        text-align: center;
+        font-size: 125%;
+        font-weight: bold;
+ }
