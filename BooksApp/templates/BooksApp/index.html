@@ -56,6 +56,7 @@
                         <p class="author">Lewis Carroll</p>
                         <p class="date">1865, London</p>
                         <hr width="60%">
+                        <p class="wordcount">{{ wordcount_alice }} words</p>
                         <p class="summary_title">Summarized in the 10 most common words:</p>
                         <p class="summary">
                             {% for word in ordered_alice %}
@@ -81,6 +82,7 @@
                         <p class="author">Bram Stoker</p>
                         <p class="date">1897, London</p>
                         <hr width="60%">
+                        <p class="wordcount">{{ wordcount_dracula }} words</p>
                         <p class="summary_title">Summarized in the 10 most common words:</p>
                         <p class="summary">
                             {% for word in ordered_dracula %}
@@ -107,6 +109,7 @@
                         <p class="author">Herman Melville</p>
                         <p class="date">1851, New York</p>
                         <hr width="60%">
+                        <p class="wordcount">{{ wordcount_moby }} words</p>
                         <p class="summary_title">Summarized in the 10 most common words:</p>
                         <p class="summary">
                             {% for word in ordered_moby %}
@@ -136,6 +139,7 @@
                         <p class="author">Jane Austen</p>
                         <p class="date">1813, London</p>
                         <hr width="60%">
+                        <p class="wordcount">{{ wordcount_pp }} words</p>
                         <p class="summary_title">Summarized in the 10 most common words:</p>
                         <p class="summary">
                             {% for word in ordered_pp %}
@@ -162,6 +166,7 @@
                         <p class="author">Charles Dickens</p>
                         <p class="date">1859, London</p>
                         <hr width="60%">
+                        <p class="wordcount">{{ wordcount_two_cities }} words</p>
                         <p class="summary_title">Summarized in the 10 most common words:</p>
                         <p class="summary">
                             {% for word in ordered_two_cities %}
