@@ -198,12 +198,22 @@ def index(request):
     common_sequences_a_tt = find_common_sentences.find_longest_common_sequences(read_book(ALICE),
                                                                                 read_book(TWO_CITIES))
 
+    wordcount_alice = len(read_book(ALICE))
+    wordcount_dracula = len(read_book(DRACULA))
+    wordcount_moby = len(read_book(MOBY_DICK))
+    wordcount_pp = len(read_book(PRIDE_PREJUDICE))
+    wordcount_two_cities = len(read_book(TWO_CITIES))
 
     return render(request, 'BooksApp/index.html', {'opening_line_alice': opening_line_alice,
                                                    'opening_line_dracula': opening_line_dracula,
                                                    'opening_line_moby': opening_line_moby,
                                                    'opening_line_pp': opening_line_pp ,
                                                    'opening_line_two_cities': opening_line_two_cities,
+                                                   'wordcount_alice': wordcount_alice,
+                                                   'wordcount_dracula': wordcount_dracula,
+                                                   'wordcount_moby': wordcount_moby,
+                                                   'wordcount_pp': wordcount_pp,
+                                                   'wordcount_two_cities': wordcount_two_cities,
                                                    'ordered_dracula': ordered_dracula[0:9],
                                                    'ordered_moby': ordered_moby[0:9],
                                                    'ordered_pp': ordered_pp[0:9],
