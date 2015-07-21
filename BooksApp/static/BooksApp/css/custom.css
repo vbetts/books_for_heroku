@@ -9,6 +9,10 @@ body { background: url("../images/symphony.png") repeat; }
 
 p, h1, h2, h3, h4 { color: #474747; }
 
+h2 {
+       text-align: center;
+}
+
 h3 { text-align: center;}
 
 .sequence { color: #17175C; }
@@ -60,4 +64,13 @@ h3 { text-align: center;}
  .wordcount {
         text-align: center;
         font-size: 125%;
+ }
+
+ #intro {
+        text-align: center;
+ }
+
+ #intro p {
+    font-size: 120%;
+    font-weight: bold;
  }
